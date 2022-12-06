@@ -3,7 +3,7 @@
 /node_modules
 
 #Banco
-/env
+/.env
 
 # Logs
 logs
