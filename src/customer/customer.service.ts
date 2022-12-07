@@ -42,7 +42,7 @@ export class CustomerService {
     throw new NotFoundException('The user not exists')
    }
 
-   return await this.prisma.customer.update({
+  return await this.prisma.customer.update({
     data,
     where:{
       id,
@@ -50,7 +50,21 @@ export class CustomerService {
    })
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} customer`;
+  async remove(id: string) {
+   const clientId = await this.prisma.customer.findUnique({
+    where:{
+      id,
+    }
+   })
+   if(!clientId){
+    throw new NotFoundException('Customer does not exists!')
+   }else{
+    await this.prisma.customer.delete({
+      where:{
+        id,
+      }
+    })
+    return "your user was deleted"
+   }
   }
 }
