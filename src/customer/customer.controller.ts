@@ -36,13 +36,17 @@ export class CustomerController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateCustomerDto: UpdateCustomerDto,
+    @Body() data: UpdateCustomerDto,
   ) {
-    return this.customerService.update(+id, updateCustomerDto);
+    try{
+      return this.customerService.update(id, data);
+    }catch(error){
+      throw new Error(error)
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.customerService.remove(+id);
+    return this.customerService.remove(id);
   }
 }

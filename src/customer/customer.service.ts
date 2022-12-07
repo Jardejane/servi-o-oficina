@@ -2,6 +2,7 @@ import { PrismaService } from './../../prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { timeStamp } from 'console';
 
 @Injectable()
 export class CustomerService {
@@ -30,11 +31,26 @@ export class CustomerService {
    return clients
   }
 
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
-    return `This action updates a #${id} customer`;
+  async update(id: string, data: UpdateCustomerDto): Promise<UpdateCustomerDto> {
+   const clientId = await this.prisma.customer.findUnique({
+    where:{
+      id,
+    }
+   }) 
+
+   if(!clientId){
+    throw new NotFoundException('The user not exists')
+   }
+
+   return await this.prisma.customer.update({
+    data,
+    where:{
+      id,
+    }
+   })
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} customer`;
   }
 }
