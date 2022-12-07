@@ -25,12 +25,9 @@ export class CustomerService {
     return cliente;
   }
 
-  findAll() {
-    return `This action returns all customer`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} customer`;
+  async getAll(): Promise<CreateCustomerDto[]> {
+   const clients = await this.prisma.customer.findMany()
+   return clients
   }
 
   update(id: number, updateCustomerDto: UpdateCustomerDto) {

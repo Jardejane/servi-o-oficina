@@ -25,13 +25,12 @@ export class CustomerController {
   }
 
   @Get()
-  findAll() {
-    return this.customerService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.customerService.findOne(+id);
+  async getAll() {
+    try {
+      return this.customerService.getAll();
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   @Patch(':id')
