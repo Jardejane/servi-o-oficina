@@ -10,8 +10,8 @@ export class CreateClerkDto {
   email: string;
 
   @IsString()
-  password: String;
+  password: string;
 
   @IsString()
-  isAdmin: String;
+  isAdmin: string;
 }

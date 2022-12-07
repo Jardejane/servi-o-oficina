@@ -8,8 +8,13 @@ export class ClerkController {
   constructor(private readonly clerkService: ClerkService) {}
 
   @Post()
-  create(@Body() createClerkDto: CreateClerkDto) {
-    return this.clerkService.create(createClerkDto);
+ async create(@Body() data: CreateClerkDto) {
+  try{
+    return this.clerkService.create(data);
+  }catch(error){
+    throw new Error(error);
+  }
+  
   }
 
   @Get()
