@@ -39,8 +39,23 @@ async getAll() {
     return clerkId
   }
 
-  update(id: number, updateClerkDto: UpdateClerkDto) {
-    return `This action updates a #${id} clerk`;
+ async update(id: string, data: UpdateClerkDto):Promise<CreateClerkDto> {
+  const clerkId = await this.prisma.clerk.findUnique({
+    where:{
+      id,
+    }
+   }) 
+    if(!clerkId){
+      throw new NotFoundException("clerk does not exists")
+    }
+
+    return await this.prisma.clerk.update({
+      data,
+      where:{
+        id,
+      }
+    })
+
   }
 
   remove(id: number) {

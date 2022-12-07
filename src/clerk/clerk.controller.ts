@@ -28,8 +28,8 @@ export class ClerkController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClerkDto: UpdateClerkDto) {
-    return this.clerkService.update(+id, updateClerkDto);
+  async update(@Param('id') id: string, @Body()data: UpdateClerkDto) {
+    return await this.clerkService.update(id, data);
   }
 
   @Delete(':id')
