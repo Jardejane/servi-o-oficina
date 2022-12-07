@@ -22,12 +22,21 @@ export class ClerkService {
     return employed
   }
 
-  findAll() {
-    return `This action returns all clerk`;
+async getAll() {
+    return await this.prisma.clerk.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} clerk`;
+  async getOne(id: string) : Promise<CreateClerkDto>{
+   const clerkId =await this.prisma.clerk.findUnique({
+    where:{
+      id,
+    }
+   }) 
+    if(!clerkId){
+      throw new NotFoundException("clerk does not exists")
+    }
+
+    return clerkId
   }
 
   update(id: number, updateClerkDto: UpdateClerkDto) {

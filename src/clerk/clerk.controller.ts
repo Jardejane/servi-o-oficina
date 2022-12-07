@@ -18,13 +18,13 @@ export class ClerkController {
   }
 
   @Get()
-  findAll() {
-    return this.clerkService.findAll();
+  async findAll() {
+    return this.clerkService.getAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.clerkService.findOne(+id);
+    return this.clerkService.getOne(id);
   }
 
   @Patch(':id')
