@@ -58,7 +58,23 @@ async getAll() {
 
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} clerk`;
+  async remove(id: string) {
+    const clerkId = await this.prisma.clerk.findUnique({
+      where:{
+        id,
+      }
+     }) 
+      if(!clerkId){
+        throw new NotFoundException("clerk does not exists")
+      }else{
+        await this.prisma.clerk.delete({
+          where:{
+            id
+          }
+        })
+        return 'successfully deleted';
+      }
+  
+    
   }
 }

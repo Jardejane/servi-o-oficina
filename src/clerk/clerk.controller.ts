@@ -34,6 +34,6 @@ export class ClerkController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.clerkService.remove(+id);
+    return this.clerkService.remove(id);
   }
 }
