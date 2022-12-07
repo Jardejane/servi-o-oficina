@@ -1,11 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { PrismaService } from './../../prisma/prisma.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Injectable()
 export class CustomerService {
-  create(createCustomerDto: CreateCustomerDto) {
-    return 'This action adds a new customer';
+  constructor(private prisma: PrismaService) {}
+
+  async create(data: CreateCustomerDto): Promise<CreateCustomerDto> {
+    const emailExist = await this.prisma.customer.findFirst({
+      where: {
+        email: data.email,
+      },
+    });
+    
+    if (emailExist) {
+      throw new NotFoundException('The user already exists');
+    }
+
+    const cliente = await this.prisma.customer.create({
+      data,
+    });
+
+    return cliente;
   }
 
   findAll() {
