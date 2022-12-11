@@ -11,4 +11,11 @@ async create (data: dtoServiceCreate): Promise<dtoServiceCreate>{
 async  getAllService(): Promise<dtoServiceCreate[]>{
     return await this.prisma.services.findMany()
 }
+async getIdService(id):Promise<dtoServiceCreate>{
+    return await this.prisma.services.findUnique({
+        where:{
+            id
+        }
+    })
+}
 }

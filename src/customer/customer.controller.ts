@@ -60,4 +60,8 @@ export class CustomerController {
  async  getAllServices(){
   return await this.service.getAllService()
  }
+ @Get('services/:id')
+ async  getIdService(@Param('id') id: string){
+  return await this.service.getIdService(id)
+ }
 }
