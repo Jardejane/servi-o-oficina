@@ -10,15 +10,17 @@ import {
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
+import {ServicesService} from '../services/services.service'
 
 @Controller('customer')
 export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
+  constructor(private readonly customerService: CustomerService,
+    private service : ServicesService) {}
 
   @Post()
   async create(@Body() data: CreateCustomerDto) {
     try {
-      return this.customerService.create(data);
+      return await this.customerService.create(data);
     } catch (error) {
       throw new Error(error);
     }
@@ -53,4 +55,9 @@ export class CustomerController {
        throw new Error(error)
     }
   }
+
+ @Get('services')
+ async  getAllServices(){
+  return await this.service.getAllService()
+ }
 }

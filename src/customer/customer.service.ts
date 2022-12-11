@@ -2,7 +2,6 @@ import { PrismaService } from './../../prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { timeStamp } from 'console';
 
 @Injectable()
 export class CustomerService {
@@ -67,4 +66,5 @@ export class CustomerService {
     return "your user was deleted"
    }
   }
+
 }

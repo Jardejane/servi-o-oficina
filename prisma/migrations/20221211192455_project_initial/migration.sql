@@ -29,8 +29,6 @@ CREATE TABLE "Services" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "type" TEXT NOT NULL,
-    "customerId" TEXT,
-    "clerkId" TEXT,
 
     CONSTRAINT "Services_pkey" PRIMARY KEY ("id")
 );
@@ -46,9 +44,3 @@ CREATE UNIQUE INDEX "Clerk_email_key" ON "Clerk"("email");
 
 -- AddForeignKey
 ALTER TABLE "Clerk" ADD CONSTRAINT "Clerk_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Services" ADD CONSTRAINT "Services_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "Customer"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Services" ADD CONSTRAINT "Services_clerkId_fkey" FOREIGN KEY ("clerkId") REFERENCES "Clerk"("id") ON DELETE SET NULL ON UPDATE CASCADE;

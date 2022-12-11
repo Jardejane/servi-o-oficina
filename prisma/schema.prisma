@@ -16,7 +16,6 @@ model Customer {
   address   String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  product   Services[]
   auxiliary Clerk[]
 }
 
@@ -26,17 +25,12 @@ model Clerk {
   email      String     @unique
   password   String
   isAdmin    String
-  product    Services[]
   Customer   Customer?  @relation(fields: [customerId], references: [id])
   customerId String?
 }
 
 model Services {
-  id         String    @id @default(uuid())
+  id         String   @id @default(uuid())
   name       String
   type       String
-  Customer   Customer? @relation(fields: [customerId], references: [id])
-  customerId String?
-  Clerk      Clerk?    @relation(fields: [clerkId], references: [id])
-  clerkId    String?
 }
