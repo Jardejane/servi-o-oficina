@@ -18,4 +18,15 @@ async getIdService(id):Promise<dtoServiceCreate>{
         }
     })
 }
+async upadate(data: dtoServiceCreate, id: string){
+    return this.prisma.services.update({
+        data, 
+        where:{
+           id 
+        }
+    })
+}
+
+
+
 }
