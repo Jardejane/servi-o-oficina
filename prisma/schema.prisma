@@ -8,14 +8,14 @@ datasource db {
 }
 
 model Customer {
-  id        String     @id @default(uuid())
+  id        String   @id @default(uuid())
   name      String
-  email     String     @unique
-  cpf       String     @unique
+  email     String   @unique
+  cpf       String   @unique
   password  String
   address   String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   auxiliary Clerk[]
 }
 
@@ -27,10 +27,19 @@ model Clerk {
   isAdmin    String
   Customer   Customer?  @relation(fields: [customerId], references: [id])
   customerId String?
+  product    Services[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Services {
-  id         String   @id @default(uuid())
-  name       String
-  type       String
+  id      String  @id @default(uuid())
+  name    String
+  type    String
+  Clerk   Clerk?  @relation(fields: [clerkId], references: [id])
+  clerkId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

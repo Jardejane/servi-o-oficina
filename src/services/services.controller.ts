@@ -1,7 +1,9 @@
 import { dtoServiceCreate } from './dto/create-services';
 import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
 import { ServicesService } from './services.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Services')
 @Controller('services')
 export class ServicesController {
   constructor(private readonly services: ServicesService) {}
