@@ -1,5 +1,5 @@
 import { dtoServiceCreate } from './dto/create-services';
-import { Controller, Post, Body, Get, Param, Patch } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete } from '@nestjs/common';
 import { ServicesService } from './services.service';
 
 @Controller('services')
@@ -21,5 +21,10 @@ export class ServicesController {
   @Patch(':id')
   async update(@Param('id')id: string, @Body()data: dtoServiceCreate){
     return await this.services.upadate(data, id)
+  }
+
+  @Delete(':id')
+  async delete(@Param('id')id : string){
+    return await this.services.remove(id)
   }
 }
