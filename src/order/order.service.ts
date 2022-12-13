@@ -73,7 +73,28 @@ export class OrderService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} order`;
+    return this.prisma.order.findUnique({
+      where:{id},
+      include:{
+        Customer:{
+          select:{
+            name: true
+          }
+        },
+        Clerk:{
+          select:{
+            name:true
+           }
+        },
+        products:{
+          select:{
+            id: true,
+            name:true,
+            type:true
+          }
+        }
+      }
+    })
   }
 
 }
