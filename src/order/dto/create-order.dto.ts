@@ -1,6 +1,5 @@
 import { IsString, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { dtoServiceCreate } from "src/services/dto/create-services"
 
 export class CreateOrderDto {
     @ApiProperty()
@@ -15,11 +14,6 @@ export class CreateOrderDto {
     @IsString()
     customerId?: string
 
-    // @ApiProperty()
-    // createdAt?: Date
-
-    // @ApiProperty()
-    // updatedAt?: Date
     @IsUUID(undefined, {each: true})
     @ApiProperty()
     services : string[]

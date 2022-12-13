@@ -21,22 +21,42 @@ export class ClerkController {
 
   @Get()
   async findAll() {
-    return this.clerkService.getAll();
+    try{
+      return this.clerkService.getAll();
+    }catch(error){
+      throw new Error(error);
+    }
+    
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.clerkService.getOne(id);
+    try{
+      return this.clerkService.getOne(id);
+    }catch(error){
+      throw new Error(error);
+    }
+    
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body()data: UpdateClerkDto) {
-    return await this.clerkService.update(id, data);
+    try{
+      return await this.clerkService.update(id, data);
+    }catch(error){
+      throw new Error(error);
+    }
+    
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.clerkService.remove(id);
+    try{
+      return this.clerkService.getAll();
+    }catch(error){
+      return this.clerkService.remove(id);
+    }
+    
   }
 
 }
