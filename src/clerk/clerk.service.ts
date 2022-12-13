@@ -1,7 +1,9 @@
+import { IsString } from 'class-validator';
 import { PrismaService } from './../../prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateClerkDto } from './dto/create-clerk.dto';
 import { UpdateClerkDto } from './dto/update-clerk.dto';
+
 
 @Injectable()
 export class ClerkService {
@@ -18,6 +20,7 @@ export class ClerkService {
     }
     const employed = await this.prisma.clerk.create({
       data,
+      
     })
     return employed
   }
@@ -77,4 +80,5 @@ async getAll() {
   
     
   }
+
 }

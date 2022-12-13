@@ -38,4 +38,5 @@ export class ClerkController {
   remove(@Param('id') id: string) {
     return this.clerkService.remove(id);
   }
+
 }
