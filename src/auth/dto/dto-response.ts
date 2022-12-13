@@ -7,5 +7,8 @@ export class loginCustomerResponseDto{
     token:string;
 
     @ApiProperty()
-    customer:CreateCustomerDto 
+    customer:CreateCustomerDto
+
+    @ApiProperty()
+    clerk :CreateClerkDto
 }
