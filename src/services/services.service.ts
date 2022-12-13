@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { dtoServiceCreate } from './dto/create-services';
 import { PrismaService } from 'prisma/prisma.service';
 
@@ -8,20 +8,49 @@ export class ServicesService {
     constructor(private prisma: PrismaService) {}
  
     async createService(data: dtoServiceCreate): Promise<dtoServiceCreate> {
-        return await this.prisma.services.create({ data })
+        const Exist = await this.prisma.services.findUnique({
+            where: {
+             id: data.id,
+            },
+          });
+          
+          if (Exist) {
+            throw new NotFoundException('The user already exists');
+          }
+        const serviceNew = await this.prisma.services.create({ data })
+        return serviceNew
     }
 
     async getAllService(): Promise<dtoServiceCreate[]> {
         return await this.prisma.services.findMany()
     }
     async getIdService(id): Promise<dtoServiceCreate> {
-        return await this.prisma.services.findUnique({
+        const Exist = await this.prisma.services.findUnique({
+            where: {
+             id
+            },
+          });
+          
+          if (!Exist) {
+            throw new NotFoundException('The user not does exists');
+          }
+          return await this.prisma.services.findUnique({
             where: {
                 id
             }
         })
     }
     async upadate(data: dtoServiceCreate, id: string) {
+        const Exist = await this.prisma.services.findUnique({
+            where: {
+             id
+            },
+          });
+          
+          if (!Exist) {
+            throw new NotFoundException('The user not does exists');
+          }
+
         return await this.prisma.services.update({
             data,
             where: {
@@ -30,7 +59,17 @@ export class ServicesService {
         })
     }
 
-    async remove(id: string){
+    async remove(id: string){    
+        const Exist = await this.prisma.services.findUnique({
+        where: {
+         id
+        },
+      });
+      
+      if (!Exist) {
+        throw new NotFoundException('The user not does exists');
+      }
+
         return await this.prisma.services.delete({
             where: {
                 id
