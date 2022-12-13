@@ -1,5 +1,5 @@
 import { PrismaService } from 'prisma/prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Prisma } from '@prisma/client';
 
@@ -72,7 +72,16 @@ export class OrderService {
     })
   }
 
-  findOne(id: string) {
+  async findOne(id: string) { 
+    const Exist = await this.prisma.order.findUnique({
+    where: {
+     id
+    },
+  });
+  
+  if (!Exist) {
+    throw new NotFoundException('The user not does exists');
+  }
     return this.prisma.order.findUnique({
       where:{id},
       include:{
