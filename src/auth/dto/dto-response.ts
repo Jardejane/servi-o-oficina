@@ -2,13 +2,13 @@ import { CreateClerkDto } from "src/clerk/dto/create-clerk.dto";
 import { CreateCustomerDto } from "src/customer/dto/create-customer.dto";
 import { ApiProperty } from '@nestjs/swagger'
 
-export class loginCustomerResponseDto{
+export class loginCustomerResponseDto {
     @ApiProperty()
-    token:string;
+    token: string;
 
     @ApiProperty()
-    customer:CreateCustomerDto
+    customer: CreateCustomerDto
 
     @ApiProperty()
-    clerk :CreateClerkDto
+    clerk: CreateClerkDto
 }

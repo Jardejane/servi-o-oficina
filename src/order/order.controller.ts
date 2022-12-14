@@ -6,10 +6,10 @@ import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Order')
 @UseGuards(AuthGuard())
-  @ApiBearerAuth()
+@ApiBearerAuth()
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(private readonly orderService: OrderService) { }
 
   @Post()
   create(@Body() createOrderDto: CreateOrderDto) {

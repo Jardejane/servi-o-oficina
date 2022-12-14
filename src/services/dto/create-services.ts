@@ -3,14 +3,14 @@ import { ApiProperty } from '@nestjs/swagger';
 export class dtoServiceCreate {
     @ApiProperty()
     @IsString()
-    id : string 
+    id: string
 
     @ApiProperty()
     @IsString()
-    name :string
+    name: string
 
     @ApiProperty()
     @IsString()
-    type : string
- 
+    type: string
+
 }

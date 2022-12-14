@@ -7,54 +7,54 @@ import { UpdateClerkDto } from './dto/update-clerk.dto';
 
 @Injectable()
 export class ClerkService {
-   constructor(private prisma: PrismaService){}
+  constructor(private prisma: PrismaService) { }
 
-  async create(data: CreateClerkDto): Promise<CreateClerkDto>{
+  async create(data: CreateClerkDto): Promise<CreateClerkDto> {
     const emailExist = await this.prisma.clerk.findFirst({
-      where:{
+      where: {
         email: data.email
       }
     })
-    if(emailExist){
+    if (emailExist) {
       throw new NotFoundException("The user already exists")
     }
     const employed = await this.prisma.clerk.create({
       data,
-      
+
     })
     return employed
   }
 
-async getAll() {
+  async getAll() {
     return await this.prisma.clerk.findMany()
   }
 
-  async getOne(id: string) : Promise<CreateClerkDto>{
-   const clerkId =await this.prisma.clerk.findUnique({
-    where:{
-      id,
-    }
-   }) 
-    if(!clerkId){
+  async getOne(id: string): Promise<CreateClerkDto> {
+    const clerkId = await this.prisma.clerk.findUnique({
+      where: {
+        id,
+      }
+    })
+    if (!clerkId) {
       throw new NotFoundException("clerk does not exists")
     }
 
     return clerkId
   }
 
- async update(id: string, data: UpdateClerkDto):Promise<CreateClerkDto> {
-  const clerkId = await this.prisma.clerk.findUnique({
-    where:{
-      id,
-    }
-   }) 
-    if(!clerkId){
+  async update(id: string, data: UpdateClerkDto): Promise<CreateClerkDto> {
+    const clerkId = await this.prisma.clerk.findUnique({
+      where: {
+        id,
+      }
+    })
+    if (!clerkId) {
       throw new NotFoundException("clerk does not exists")
     }
 
     return await this.prisma.clerk.update({
       data,
-      where:{
+      where: {
         id,
       }
     })
@@ -63,22 +63,22 @@ async getAll() {
 
   async remove(id: string) {
     const clerkId = await this.prisma.clerk.findUnique({
-      where:{
+      where: {
         id,
       }
-     }) 
-      if(!clerkId){
-        throw new NotFoundException("clerk does not exists")
-      }else{
-        await this.prisma.clerk.delete({
-          where:{
-            id
-          }
-        })
-        return 'successfully deleted';
-      }
-  
-    
+    })
+    if (!clerkId) {
+      throw new NotFoundException("clerk does not exists")
+    } else {
+      await this.prisma.clerk.delete({
+        where: {
+          id
+        }
+      })
+      return 'successfully deleted';
+    }
+
+
   }
 
 }

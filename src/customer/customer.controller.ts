@@ -11,7 +11,7 @@ import {
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import {ServicesService} from '../services/services.service'
+import { ServicesService } from '../services/services.service'
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -20,11 +20,11 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('customer')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService,
-    private service : ServicesService) {}
+    private service: ServicesService) { }
 
   @Post()
   async create(@Body() data: CreateCustomerDto) {
-      return await this.customerService.create(data);
+    return await this.customerService.create(data);
   }
 
   @Get()
@@ -32,8 +32,8 @@ export class CustomerController {
   @ApiBearerAuth()
   async getAll() {
 
-      return this.customerService.getAll();
-    
+    return this.customerService.getAll();
+
   }
 
   @Patch(':id')
@@ -43,8 +43,8 @@ export class CustomerController {
     @Param('id') id: string,
     @Body() data: UpdateCustomerDto,
   ) {
-      return this.customerService.update(id, data);
-  
+    return this.customerService.update(id, data);
+
   }
 
   @Delete(':id')
@@ -52,7 +52,7 @@ export class CustomerController {
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
 
-      return this.customerService.remove(id);
+    return this.customerService.remove(id);
   }
- 
+
 }

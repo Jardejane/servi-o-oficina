@@ -8,13 +8,13 @@ export class CreateOrderDto {
 
     @ApiProperty()
     @IsString()
-    clerkId?: string 
+    clerkId?: string
 
     @ApiProperty()
     @IsString()
     customerId?: string
 
-    @IsUUID(undefined, {each: true})
+    @IsUUID(undefined, { each: true })
     @ApiProperty()
-    services : string[]
+    services: string[]
 }

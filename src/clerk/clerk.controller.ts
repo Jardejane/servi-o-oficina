@@ -8,24 +8,24 @@ import { UpdateClerkDto } from './dto/update-clerk.dto';
 @ApiTags('Clerk')
 @Controller('clerk')
 export class ClerkController {
-  constructor(private readonly clerkService: ClerkService) {}
+  constructor(private readonly clerkService: ClerkService) { }
 
   @Post()
- async create(@Body() data: CreateClerkDto) {
+  async create(@Body() data: CreateClerkDto) {
 
     return this.clerkService.create(data);
- 
-  
+
+
   }
 
   @Get()
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   async findAll() {
-   
-      return this.clerkService.getAll();
-  
-    
+
+    return this.clerkService.getAll();
+
+
   }
 
   @Get(':id')
@@ -33,22 +33,22 @@ export class ClerkController {
   @ApiBearerAuth()
   findOne(@Param('id') id: string) {
 
-      return this.clerkService.getOne(id);
+    return this.clerkService.getOne(id);
 
-    
+
   }
 
   @Patch(':id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  async update(@Param('id') id: string, @Body()data: UpdateClerkDto) {
-        return await this.clerkService.update(id, data);
- 
-    
+  async update(@Param('id') id: string, @Body() data: UpdateClerkDto) {
+    return await this.clerkService.update(id, data);
+
+
   }
 
   @Delete(':id')
-    @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard())
   @ApiBearerAuth()
   remove(@Param('id') id: string) {
     return this.clerkService.remove(id);

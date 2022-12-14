@@ -11,9 +11,9 @@ import { JwtStrategyclerck } from './dto/jwt.strategy.clerk';
 @Module({
   imports: [PassportModule.register({ defaultStrategy: "jwt" }), JwtModule.register({
     secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: "24h" }
+    signOptions: { expiresIn: "24h" }
   })],
   controllers: [AuthController],
-  providers: [AuthService, PrismaService,JwtStrategyCustomer, JwtStrategyclerck]
+  providers: [AuthService, PrismaService, JwtStrategyCustomer, JwtStrategyclerck]
 })
-export class AuthModule {}
+export class AuthModule { }

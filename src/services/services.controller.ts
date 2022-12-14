@@ -8,34 +8,34 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Controller('services')
 export class ServicesController {
-  constructor(private readonly services: ServicesService) {}
+  constructor(private readonly services: ServicesService) { }
 
   @Post()
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  async create(@Body() data:dtoServiceCreate){
+  async create(@Body() data: dtoServiceCreate) {
     return await this.services.createService(data)
-   
+
   }
   @Get()
-  async getAll(){
+  async getAll() {
     return await this.services.getAllService()
   }
   @Get(':id')
-  async getId(@Param("id") id: string){
+  async getId(@Param("id") id: string) {
     return await this.services.getIdService(id)
   }
   @Patch(':id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  async update(@Param('id')id: string, @Body()data: dtoServiceCreate){
+  async update(@Param('id') id: string, @Body() data: dtoServiceCreate) {
     return await this.services.upadate(data, id)
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
-  async delete(@Param('id')id : string){
+  async delete(@Param('id') id: string) {
     return await this.services.remove(id)
   }
 }

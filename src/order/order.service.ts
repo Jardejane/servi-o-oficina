@@ -39,9 +39,9 @@ export class OrderService {
             name: true
           }
         },
-        products:{
-          select:{
-            name:true
+        products: {
+          select: {
+            name: true
           }
         }
       }
@@ -51,55 +51,55 @@ export class OrderService {
 
   findAll() {
     return this.prisma.order.findMany({
-     select:{
-      id: true,
-      Customer:{
-        select:{
-          name: true
-        }
-      },
-      Clerk:{
-        select:{
-          name:true
-         }
-      },
-      _count:{
-        select:{
-          products:true
-        }
-      }
-     }
-    })
-  }
-
-  async findOne(id: string) { 
-    const Exist = await this.prisma.order.findUnique({
-    where: {
-     id
-    },
-  });
-  
-  if (!Exist) {
-    throw new NotFoundException('The user not does exists');
-  }
-    return this.prisma.order.findUnique({
-      where:{id},
-      include:{
-        Customer:{
-          select:{
+      select: {
+        id: true,
+        Customer: {
+          select: {
             name: true
           }
         },
-        Clerk:{
-          select:{
-            name:true
-           }
+        Clerk: {
+          select: {
+            name: true
+          }
         },
-        products:{
-          select:{
+        _count: {
+          select: {
+            products: true
+          }
+        }
+      }
+    })
+  }
+
+  async findOne(id: string) {
+    const Exist = await this.prisma.order.findUnique({
+      where: {
+        id
+      },
+    });
+
+    if (!Exist) {
+      throw new NotFoundException('The user not does exists');
+    }
+    return this.prisma.order.findUnique({
+      where: { id },
+      include: {
+        Customer: {
+          select: {
+            name: true
+          }
+        },
+        Clerk: {
+          select: {
+            name: true
+          }
+        },
+        products: {
+          select: {
             id: true,
-            name:true,
-            type:true
+            name: true,
+            type: true
           }
         }
       }

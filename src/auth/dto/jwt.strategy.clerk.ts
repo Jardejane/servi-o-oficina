@@ -27,6 +27,6 @@ export class JwtStrategyclerck extends PassportStrategy(Strategy) {
     delete clerk.password;
 
     return clerk;
-}
+  }
 
 }

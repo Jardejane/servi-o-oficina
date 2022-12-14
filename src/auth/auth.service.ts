@@ -6,59 +6,59 @@ import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly prisma: PrismaService, 
-        private readonly jwtService: JwtService){}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService) { }
 
-  async loginCustomer(loginDto: loginDto){
-    const{email, password} = loginDto
+  async loginCustomer(loginDto: loginDto) {
+    const { email, password } = loginDto
 
-    const customer = await  this.prisma.customer.findUnique({
-        where:{
-            email
-        }   
-    })
-     if(!customer){
-        throw new NotFoundException('The user not does exists');
-     }
-
-     await bcrypt.compare(password, customer.password);
-
-     if (password !== customer.password) {
-        throw new NotFoundException("Usuário e/ou senha inválidos");
+    const customer = await this.prisma.customer.findUnique({
+      where: {
+        email
       }
+    })
+    if (!customer) {
+      throw new NotFoundException('The user not does exists');
+    }
 
-      delete customer.password;
+    await bcrypt.compare(password, customer.password);
 
-      return {
-        token: this.jwtService.sign({ email }),
-        customer,
-      };
+    if (password !== customer.password) {
+      throw new NotFoundException("Usuário e/ou senha inválidos");
+    }
+
+    delete customer.password;
+
+    return {
+      token: this.jwtService.sign({ email }),
+      customer,
+    };
   }
-  
-  async loginClerck(loginDto: loginDto){
-    const{email, password} = loginDto
 
-    const clerk = await  this.prisma.clerk.findUnique({
-        where:{
-            email
-        }   
-    })
-     if(!clerk){
-        throw new NotFoundException('The user not does exists');
-     }
+  async loginClerck(loginDto: loginDto) {
+    const { email, password } = loginDto
 
-     await bcrypt.compare(password, clerk.password);
-
-     if (password !== clerk.password) {
-        throw new NotFoundException("Usuário e/ou senha inválidos");
+    const clerk = await this.prisma.clerk.findUnique({
+      where: {
+        email
       }
+    })
+    if (!clerk) {
+      throw new NotFoundException('The user not does exists');
+    }
 
-      delete clerk.password;
+    await bcrypt.compare(password, clerk.password);
 
-      return {
-        token: this.jwtService.sign({ email }),
-        clerk,
-      };
+    if (password !== clerk.password) {
+      throw new NotFoundException("Usuário e/ou senha inválidos");
+    }
+
+    delete clerk.password;
+
+    return {
+      token: this.jwtService.sign({ email }),
+      clerk,
+    };
   }
 }

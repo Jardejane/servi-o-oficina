@@ -6,8 +6,8 @@ import { PassportModule } from '@nestjs/passport';
 
 
 @Module({
-  imports:[PassportModule.register({ defaultStrategy: "jwt" })],
+  imports: [PassportModule.register({ defaultStrategy: "jwt" })],
   controllers: [ServicesController],
   providers: [ServicesService, PrismaService]
 })
-export class ServicesModule {}
+export class ServicesModule { }
