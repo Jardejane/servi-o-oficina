@@ -6,14 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import {ServicesService} from '../services/services.service'
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Customer')
+
 @Controller('customer')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService,
@@ -21,41 +24,35 @@ export class CustomerController {
 
   @Post()
   async create(@Body() data: CreateCustomerDto) {
-    try {
       return await this.customerService.create(data);
-    } catch (error) {
-      throw new Error(error);
-    }
   }
 
   @Get()
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   async getAll() {
-    try {
+
       return this.customerService.getAll();
-    } catch (error) {
-      throw new Error(error);
-    }
+    
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   update(
     @Param('id') id: string,
     @Body() data: UpdateCustomerDto,
   ) {
-    try{
       return this.customerService.update(id, data);
-    }catch(error){
-      throw new Error(error)
-    }
+  
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard())
+  @ApiBearerAuth()
   remove(@Param('id') id: string) {
-    try{
+
       return this.customerService.remove(id);
-    }catch(error){
-       throw new Error(error)
-    }
   }
  
 }

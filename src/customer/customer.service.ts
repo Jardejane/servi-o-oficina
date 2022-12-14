@@ -1,3 +1,4 @@
+import { CreateClerkDto } from 'src/clerk/dto/create-clerk.dto';
 import { PrismaService } from './../../prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -19,7 +20,7 @@ export class CustomerService {
     }
 
     const cliente = await this.prisma.customer.create({
-      data,
+      data, 
     });
 
     return cliente;
