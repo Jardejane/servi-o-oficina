@@ -1,3 +1,5 @@
+import { throwError } from 'rxjs';
+import { CreateClerkDto } from 'src/clerk/dto/create-clerk.dto';
 import { PrismaService } from 'prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -6,11 +8,46 @@ import { Prisma } from '@prisma/client';
 @Injectable()
 export class OrderService {
   constructor(private readonly prisma: PrismaService) { }
-  create(createOrderDto: CreateOrderDto) {
+ async create(createOrderDto: CreateOrderDto) {
+   
+    const existsClerkId = await this.prisma.clerk.findUnique({
+      where:{
+        id: createOrderDto.clerkId
+      }
+    })
+
+    if(!existsClerkId){
+      throw new NotFoundException('The clerkId not does exists');
+    }
+
+    const existsCustomerId = await this.prisma.customer.findUnique({
+      where:{
+        id: createOrderDto.customerId
+      }
+    })
+
+    if(!existsCustomerId){
+      throw new NotFoundException('The customer not does exists');
+    }
+    const existservicesId = await this.prisma.services.findMany({
+      where:{
+        id:{
+          in:
+           createOrderDto.services
+        }
+      }
+    })
+
+    if( existservicesId.length == 0){
+      throw new NotFoundException('The customer not does exists');
+    }
+ 
+    
     const data: Prisma.OrderCreateInput = {
       Clerk: {
         connect: {
           id: createOrderDto.clerkId
+    
         }
       },
       Customer: {

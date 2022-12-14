@@ -5,18 +5,9 @@ import { PrismaService } from 'prisma/prisma.service';
 @Injectable()
 export class ServicesService {
 
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async createService(data: dtoServiceCreate): Promise<dtoServiceCreate> {
-    const Exist = await this.prisma.services.findUnique({
-      where: {
-        id: data.id,
-      },
-    });
-
-    if (Exist) {
-      throw new NotFoundException('The user already exists');
-    }
     const serviceNew = await this.prisma.services.create({ data })
     return serviceNew
   }

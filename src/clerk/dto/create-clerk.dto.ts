@@ -1,7 +1,7 @@
 import { IsEmail, IsString } from "class-validator";
 import { ApiProperty } from '@nestjs/swagger'
 export class CreateClerkDto {
-  @ApiProperty()
+ 
   @IsString()
   id: string;
 
